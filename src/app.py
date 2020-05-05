@@ -40,8 +40,16 @@ What would you like to do (type a number and press Enter)?
 
     option = int(input("Enter a number:"))
     # add your options here using conditionals (if)
-    if option == 3:
+    if option == 1:
+        print("\nWho would you like to add to the Queue?")
+    elif option == 2:
+        print("\nWho would you like to remove from the list?")
+    elif option == 3:
         print_queue()
+    elif option == 4:
+        print("\nExporting your Queue to .json file.")
+    elif option == 5:
+        print("\Importing your Queue from queue.json file.")
     elif option == 6:
         print("Bye bye!")
         stop = True
