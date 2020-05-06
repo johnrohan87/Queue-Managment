@@ -1,6 +1,6 @@
-import json
+import json, os
 from DataStructures import Queue
-from sms import send
+#from sms import send
 
 # there queue has to be declared globally (outside any other function)
 # that way all methods have access to it
@@ -9,12 +9,24 @@ queue = Queue(mode="FIFO")
 def print_queue():
     # you must print on the console the entire queue list
     print("Printing the entire list...")
-    print(queue.get_queue())
+    tmp_queue = queue.get_queue()
+    if tmp_queue == []:
+        print("The Queue is empty")
+        pass
+    count = 1
+    for item in range(len(tmp_queue),0,-1):
+        print(str(count) + ") " + str(tmp_queue[item-1]))
+        count +=1
+    pass
 
-def add():
+def add(guest_to_add):
+    queue.enqueue(guest_to_add)
+    print("\n" + str(guest_to_add) + " is currently " + str(queue.size()) + " in the Queue line.\n")
+    #send(body="Test SMS" + str(guest_to_add),to="+7862174153")
     pass
 
 def dequeue():
+    queue.dequeue()
     pass
 
 def save():
@@ -41,9 +53,16 @@ What would you like to do (type a number and press Enter)?
     option = int(input("Enter a number:"))
     # add your options here using conditionals (if)
     if option == 1:
-        print("\nWho would you like to add to the Queue?")
+        print("\nPlease enter the guest would you like to add to the Queue.")
+        user_input = str(input(""))
+        add(user_input)
     elif option == 2:
-        print("\nWho would you like to remove from the list?")
+        print("\nRemoving the first guest in line\n")
+        if queue.size() > 0:
+            queue.dequeue()
+        else:
+            print("The Queue is empty")
+        print_queue()
     elif option == 3:
         print_queue()
     elif option == 4:

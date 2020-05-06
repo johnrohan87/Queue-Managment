@@ -1,17 +1,20 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
-from twilio.rest import Client
+import os
+#from twilio.rest import Client
 
 def send(body='Some body', to=''):
     # Your Account Sid and Auth Token from twilio.com/console
     # DANGER! This is insecure. See http://twil.io/secure
-    account_sid = ''
-    auth_token = ''
+    # Get credentials from the .env file
+    account_sid = os.getenv("API_HOST")
+    auth_token = os.getenv("API_KEY")
+
     client = Client(account_sid, auth_token)
 
     message = client.messages \
                     .create(
                         body=body,
-                        from_='+13346058062',
+                        from_='+17243906722',
                         to='+'+to
                     )
 
