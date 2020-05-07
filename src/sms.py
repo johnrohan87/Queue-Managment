@@ -1,6 +1,5 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
 import os
-#from twilio.rest import Client
 
 def send(body='Some body', to=''):
     # Your Account Sid and Auth Token from twilio.com/console

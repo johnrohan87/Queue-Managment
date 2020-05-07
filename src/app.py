@@ -1,6 +1,9 @@
 import json, os
 from DataStructures import Queue
-#from sms import send
+from sms import send
+from twilio.rest import Client
+import twilio
+
 
 # there queue has to be declared globally (outside any other function)
 # that way all methods have access to it
@@ -53,7 +56,7 @@ What would you like to do (type a number and press Enter)?
     option = int(input("Enter a number:"))
     # add your options here using conditionals (if)
     if option == 1:
-        print("\nPlease enter the guest would you like to add to the Queue.")
+        print("\nPlease enter the guest phone number you would like to add to the Queue.")
         user_input = str(input(""))
         add(user_input)
     elif option == 2:
