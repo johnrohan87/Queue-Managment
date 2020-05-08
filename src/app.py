@@ -9,6 +9,24 @@ import twilio
 # that way all methods have access to it
 queue = Queue(mode="FIFO")
     
+def read_wright_json_file(_Is_Read_or_wright,_Data,_File_Location="/src/"):
+    if os.path.exists(_File_Location):
+        print("default file found")
+    elif os.path.exists(_File_Location) == False:
+        print("creating file ")
+
+    if _Is_Read_or_wright == "read":
+        with open('data.json', 'w') as outfile:  
+            json.dump({}, outfile)
+            pass
+    elif _Is_Read_or_wright == "wright":
+        with open('data.json', 'w') as outfile:  
+            json.dump({}, outfile)
+            pass
+    else:
+        print(f"please specify read or wright --{_Is_Read_or_wright}")
+        pass
+
 def print_queue():
     # you must print on the console the entire queue list
     print("Printing the entire list...")
