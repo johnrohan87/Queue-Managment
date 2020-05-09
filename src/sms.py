@@ -1,4 +1,6 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
+from twilio.rest import Client
+#import twilio
 import os
 
 def send(body='Some body', to=''):
@@ -10,11 +12,10 @@ def send(body='Some body', to=''):
 
     client = Client(account_sid, auth_token)
 
-    message = client.messages \
-                    .create(
+    message = client.messages.create(
                         body=body,
                         from_='+17243906722',
-                        to='+'+to
+                        to=''+to
                     )
 
     print(message.sid)
