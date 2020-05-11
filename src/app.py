@@ -26,7 +26,7 @@ def read_wright_json_file(_Is_Read_or_wright,_File_Location="src/data_file.json"
             #print(f"This is your file contents -{str(contents)}")
             if contents != "null":
                 print("Converting file to .json")
-                data = json(read_file)
+                data = json.loads(contents)
                 read_file.close()
                 return data
             else:
@@ -34,7 +34,7 @@ def read_wright_json_file(_Is_Read_or_wright,_File_Location="src/data_file.json"
                 pass
             
     elif _Is_Read_or_wright == "wright":
-        with open(_File_Location, 'w') as wright_file:
+        with open(_File_Location, 'w+') as wright_file:
 
             #Wright
             print(f"Wrighting to file {_File_Location}") 
@@ -64,19 +64,40 @@ def add(guest_to_add):
     #send(body="This is a text from the Queue messager. -"+ str(guest_to_add) + "- is " + str(queue.size()) + " in line",to="7862174153")
     pass
 
+def update_customers_position():
+    print("Messaging the entire Queue list now...")
+    tmp_queue = queue.get_queue()
+    if tmp_queue == []:
+        print("The Queue is empty")
+        pass
+    count = 1
+    for item in range(len(tmp_queue),0,-1):
+        print(str(count) + ") " + str(tmp_queue[item-1]))
+        print(f"Messaging {tmp_queue[item-1]} your place has changed to {count}")
+        #message sms user here
+        
+        count +=1
+    return tmp_queue
+
 def dequeue():
-    queue.dequeue()
+    call_person = queue.dequeue()
+    print(f"Calling {call_person} your table is ready.")
+    update_customers_position()
     pass
 
 def save():
-    current_queue = print_queue()
+    current_queue = queue.get_queue()
+    #current_queue.reverse()
     read_wright_json_file(_Is_Read_or_wright="wright", _Data=current_queue)
     print("Done")
     pass
 
 def load():
     tmp_data = (read_wright_json_file("read"))
-    print(tmp_data)
+    tmp_data.reverse()
+    for item in tmp_data:
+        add(item)
+    print("tmp_data = " + str(tmp_data) + " type = " + str(type(tmp_data)))
     pass 
         
     
@@ -103,7 +124,7 @@ What would you like to do (type a number and press Enter)?
     elif option == 2:
         print("\nRemoving the first guest in line\n")
         if queue.size() > 0:
-            queue.dequeue()
+            dequeue()
         else:
             print("The Queue is empty")
         print_queue()
